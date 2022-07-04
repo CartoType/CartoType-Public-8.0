@@ -396,36 +396,6 @@ void MapForm::TestCode()
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // INSERT TEST CODE HERE.
-    FILE* f = fopen("/home/graham/cases/5968/SALIDA_PUNTOS.csv","rb");
-    char line[256];
-    std::vector<CartoType::PointFP> p;
-    for (;;)
-        {
-        fgets(line,256,f);
-        if (feof(f))
-         break;
-        double x = 0,y = 0;
-        const char* q = line;
-        while (*q && *q != ';') q++; q++;
-        while (*q && *q != ';') q++; q++;
-        sscanf(q,"%lg;%lg",&x,&y);
-        if (x && y)
-            p.push_back({ x,y });
-        }
-    fclose(f);
-
-    // HACK
-    p.resize(100);
-    CartoType::Result error;
-
-    for (const auto& point : p)
-        {
-        uint64_t id = 0;
-        m_framework->InsertPushPin(point.X,point.Y,CartoType::CoordType::Degree,"","",0,id);
-        }
-
-    CartoType::RouteProfile profile = *m_framework->Profile(0);
-    auto matrix = m_framework->TimeAndDistanceMatrix(error,p,p,CartoType::CoordType::Degree);
 
     auto end_time = std::chrono::high_resolution_clock::now();
     double total_time = std::chrono::duration<double>(end_time - start_time).count();
