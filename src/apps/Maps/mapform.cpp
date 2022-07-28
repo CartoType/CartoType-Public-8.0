@@ -1268,7 +1268,7 @@ void MapForm::SetRouteProfileIndex(size_t aIndex)
     m_route_profile_index = aIndex;
     if (m_framework->BuiltInProfileCount())
         m_framework->SetBuiltInProfile(aIndex);
-    else if (aIndex == 4)
+    else if (aIndex == 5)
         m_framework->SetMainProfile(m_main_window.CustomRouteProfile());
     else
         {
@@ -1278,6 +1278,7 @@ void MapForm::SetRouteProfileIndex(size_t aIndex)
             case 1: type = CartoType::RouteProfileType::Cycle; break;
             case 2: type = CartoType::RouteProfileType::Walk; break;
             case 3: type = CartoType::RouteProfileType::Hike; break;
+            case 4: type = CartoType::RouteProfileType::Ski; break;
             default: break;
             }
         m_framework->SetMainProfile(type);

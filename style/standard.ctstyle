@@ -67,7 +67,7 @@ For more information see http://www.cartotype.com.
         </icon>
         <icon id='theatre-icon' width='10m,3pt,20pt'>
             <svg width="15" height="15" viewBox="0 0 15 15">
-                <path d="M2,1c0,0-1,0-1,1v5.1582C1,8.8885,1.354,11,4.5,11H5V8L2.5,9c0,0,0-2.5,2.5-2.5V5
+                <path fill="darkgrey+0.3black" d="M2,1c0,0-1,0-1,1v5.1582C1,8.8885,1.354,11,4.5,11H5V8L2.5,9c0,0,0-2.5,2.5-2.5V5
                     c0-0.7078,0.0868-1.3209,0.5-1.7754C5.8815,2.805,6.5046,1.9674,8.1562,2.7539L9,3.3027V2c0,0,0-1-1-1C7.2922,1,6.0224,2,5,2
                     S2.7865,1,2,1z M3,3c0.5523,0,1,0.4477,1,1S3.5523,5,3,5S2,4.5523,2,4S2.4477,3,3,3z M7,4c0,0-1,0-1,1v5c0,2,1,4,4,4s4-2,4-4V5
                     c0-1-1-1-1-1c-0.7078,0-1.9776,1-3,1S7.7865,4,7,4z M8,6c0.5523,0,1,0.4477,1,1S8.5523,8,8,8S7,7.5523,7,7S7.4477,6,8,6z M12,6
@@ -76,25 +76,19 @@ For more information see http://www.cartotype.com.
         </icon>
         <icon id='cinema-icon' width='10m,3pt,20pt'>
             <svg width="15" height="15" viewBox="0 0 15 15">
-                <path d="M14,7.5v2c0,0.2761-0.2239,0.5-0.5,0.5S13,9.7761,13,9.5c0,0,0.06-0.5-1-0.5h-1v2.5c0,0.2761-0.2239,0.5-0.5,0.5h-8
+                <path fill="darkgrey+0.3black" d="M14,7.5v2c0,0.2761-0.2239,0.5-0.5,0.5S13,9.7761,13,9.5c0,0,0.06-0.5-1-0.5h-1v2.5c0,0.2761-0.2239,0.5-0.5,0.5h-8
                     C2.2239,12,2,11.7761,2,11.5v-4C2,7.2239,2.2239,7,2.5,7h8C10.7761,7,11,7.2239,11,7.5V8h1c1.06,0,1-0.5,1-0.5
                     C13,7.2239,13.2239,7,13.5,7S14,7.2239,14,7.5z M4,3C2.8954,3,2,3.8954,2,5s0.8954,2,2,2s2-0.8954,2-2S5.1046,3,4,3z M4,6
                     C3.4477,6,3,5.5523,3,5s0.4477-1,1-1s1,0.4477,1,1S4.5523,6,4,6z M8.5,2C7.1193,2,6,3.1193,6,4.5S7.1193,7,8.5,7S11,5.8807,11,4.5
                     S9.8807,2,8.5,2z M8.5,6C7.6716,6,7,5.3284,7,4.5S7.6716,3,8.5,3S10,3.6716,10,4.5S9.3284,6,8.5,6z"/>
             </svg>
         </icon>
-        <icon id='atm-icon' width='20m,6pt,30pt'>
-            <svg viewBox="0 0 53 63" fill="#009F30" stroke="white" stroke-width="2">
-                <g transform="translate(3,3)">
-                    <rect x="0" y="20" width="40" height="20"/>
-                </g>
-                <g transform="translate(6,6)">
-                    <rect x="0" y="20" width="40" height="20"/>
-                    <rect fill="none" stroke-width="1.5" x="3" y="24" width="34" height="12"/>
-                    <rect fill="white" stroke="none" x="13" y="26" width="2" height="8"/>
-                    <circle fill="none" stroke-width="2" cx="23" cy="30" r="4"/>
-                </g>
-            </svg>
+        <!-- from https://wiki.openstreetmap.org/wiki/File:Bank-16.svg; public domain -->
+        <icon id='atm-icon' width='14m,5pt,28pt'>
+            <svg width="16" height="16" viewBox="0 0 16 16">
+                <path d="m 0,2 0,7 c 0,0.627119 0.423729,1 1,1 l 12,0 c 0.576271,0 1,-0.423729 1,-1 L 14,2 0,2 z m 3,1 8,0 c 0,1 1,2 2,2 l 0,2 C 12,7 11,8 11,9 L 3,9 C 3,8 2,7 1,7 L 1,5 C 2,5 3,4 3,3 z M 7,4 C 5.343146,4 4,4.8954305 4,6 4,7.10457 5.343146,8 7,8 8.656855,8 10,7.10457 10,6 10,4.8954305 8.656855,4 7,4 z M 0,10.5 C 0,11.626577 0.448696,12 1,12 l 12,0 c 0.551304,0 1,-0.445333 1,-1.5 -0.288136,0.271186 -0.559322,0.5 -1,0.5 L 1,11 C 0.559322,11 0.271186,10.754237 0,10.5 z"
+                      id="bank" style="fill:#009F30" transform="translate(1,1)"/>
+            </svg>            
         </icon>
         <icon id='pharmacy-icon' width='10m,3pt,20pt'>
             <svg viewBox="0 0 36 36" height="62">
@@ -230,8 +224,6 @@ For more information see http://www.cartotype.com.
             <highlight distance='6m@6000_30m@40000' fill='~color~' width='1.5m@6000_18m@40000,1.5pt'/>
             <highlight distance='-6m@6000_-30m@40000' fill='~color~' width='1.5m@6000_18m@40000,1.5pt'/>
             <line fill='none' width='8m@6000_50m@40000,1.5pt'/>
-            <label priority='-9' case='lower' color='~color~+grey' font-size='20m,8pt,12pt' glow='white' position='horizontal'
-                   labelFormat='{[padding:20%,0.6pt;background-color:#FFFFFFC0;border-color:~color~+grey;border-width:12%,0.7;border-radius:50%,1.2pt}_route:distance"&#10;"_route:time{]}'/>
         </macro>
         <macro id='traffic-highlight'>
             <condition exp='(@sub_type bitand 0xFF) le ~maxspeed~'>
@@ -343,18 +335,17 @@ For more information see http://www.cartotype.com.
     <scale max='50000000' min='40000'>
         <layer name='place/major'>
             <label case='assume-title' color='darkslategrey' duplicate='10000m,1024pt' font-size='130m,5pt,16pt' glow='white' glowWidth='7%,0.5pt' position='point' priority='0' wrapWidth='12em'/>
-            <condition exp='@feature_type="cit"'>
-                <scale max='3000000'>
-                    <label color='dimgrey' font-size='200m,7pt,24pt' font-weight='bold' priority='-6'/>
-                </scale>
-                <scale min='3000000'>
-                    <label color='dimgrey' font-size='200m,7pt,24pt' priority='-6'/>
-                </scale>
-                <condition exp='capital="yes"'>
-                    <label font-size='200m,7pt,24pt' priority='-7'/>
+            <scale max='20000000'>
+                <condition exp='(capital="yes" or capital==4) and @sub_type lt 4'>
+                    <label font-size='200m,7pt,30pt' font-weight='bold' priority='-7'/>
                 </condition>
-            </condition>
-            <scale max='1500000'>
+            </scale>
+            <scale max='10000000'>
+                <condition exp='@feature_type="cit"'>
+                    <label color='dimgrey' font-size='200m,7pt,24pt' font-weight='bold' priority='-6'/>
+                </condition>
+            </scale>
+            <scale max='1000000'>
                 <condition exp='@feature_type="tow"'>
                     <label font-size='200m,7pt,24pt' priority='-5'/>
                 </condition>
@@ -388,14 +379,18 @@ For more information see http://www.cartotype.com.
     </scale>
     <layer name='land/major'>
         <label case='assume-title' color='mediumseagreen' condense='no' font-size='25m,5pt,8pt' glow='white' glowWidth='7%,0.5pt' maxPolygonLabelLength='2' position='horizontal' wrap='yes' wrapWidth='10em'/>
-        <condition exp='@feature_type in { "for","woo" }'>
-            <shape fill='limegreen+0.2red' opacity='0.3'/>
-        </condition>
+        <scale max='10000000'>
+            <condition exp='@feature_type in { "for","woo" }'>
+                <shape fill='limegreen+0.2red' opacity='0.3'/>
+            </condition>
+        </scale>
         <macro ref='water'/>
-        <condition exp='@feature_type="gla"'>
-            <shape fill='white' opacity='0.5'/>
-            <label color='lightblue' maxScale='150000'/>
-        </condition>
+        <scale max='10000000'>
+            <condition exp='@feature_type="gla"'>
+                <shape fill='white' opacity='0.5'/>
+                <label color='lightblue' maxScale='150000'/>
+            </condition>
+        </scale>
     </layer>
     <scale max='150000'>
         <layer name='land/minor'>
@@ -567,18 +562,20 @@ For more information see http://www.cartotype.com.
                     <macro ref='standard-tunnel'/>
                 </condition>
             </scale>
-            <condition exp='@feature_type="trunk road"'>
-                <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.5white' width='12m@6000_72m@75000,0.5pt'/>
-                <scale max='500000'>
-                    <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='75%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.6white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
-                </scale>
-                <scale max='50000'>
-                    <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';' letter-spacing='0.2em' word-spacing='0.1em'/>
-                </scale>
-                <macro color='slategrey' ref='one-way-arrow'/>
-                <macro ref='standard-bridge'/>
-                <macro ref='standard-tunnel'/>
-            </condition>
+            <scale max='10000000'>
+                <condition exp='@feature_type="trunk road"'>
+                    <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.5white' width='12m@6000_72m@75000,0.5pt'/>
+                    <scale max='500000'>
+                        <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='75%,5pt,18pt' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.6white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
+                    </scale>
+                    <scale max='50000'>
+                        <label case='upper' color='dimgrey' duplicate='1000m,128pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';' letter-spacing='0.2em' word-spacing='0.1em'/>
+                    </scale>
+                    <macro color='slategrey' ref='one-way-arrow'/>
+                    <macro ref='standard-bridge'/>
+                    <macro ref='standard-tunnel'/>
+                </condition>
+            </scale>
             <scale max='1500000'>
                 <condition exp='@feature_type="motorway link"'>
                     <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='10m@6000_60m@75000,0.6pt'/>
@@ -589,17 +586,19 @@ For more information see http://www.cartotype.com.
                     <macro ref='standard-tunnel'/>
                 </condition>
             </scale>
-            <condition exp='@feature_type="motorway"'>
-                <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='12m@6000_100m@75000,0.75pt'/>
-                <scale max='75000'>
-                    <label case='upper' color='dimgrey' duplicate='1000m,256pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';'/>
-                </scale>
-                <scale max='6000000'>
-                    <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='90%,5pt,18pt' font-weight='bold' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.5white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
-                </scale>
-                <macro ref='standard-bridge'/>
-                <macro ref='standard-tunnel'/>
-            </condition>
+            <scale max='15000000'>
+                <condition exp='@feature_type="motorway"'>
+                    <line border='dimgrey' borderWidth='8%,0.35pt,1pt' fill='orange+0.03black+0.2white' width='12m@6000_100m@75000,0.75pt'/>
+                    <scale max='75000'>
+                        <label case='upper' color='dimgrey' duplicate='1000m,256pt' font-size='75%,5pt,18pt' glow='white' glowWidth='7%,0.5pt' labelFormat=';'/>
+                    </scale>
+                    <scale max='6000000'>
+                        <label baseline='central-caps' color='dimgrey+0.25white' condense='no' duplicate='1000m,256pt' font-size='90%,5pt,18pt' font-weight='bold' labelFormat='{[padding:20%,0.6pt;background-color:orange+0.5white;border-color:dimgrey+0.25white;border-width:12%,0.7;border-radius:50%,1.2pt}ref{]}' wrapLines='0' wrapWidth='30em'/>
+                    </scale>
+                    <macro ref='standard-bridge'/>
+                    <macro ref='standard-tunnel'/>
+                </condition>
+            </scale>
         </layer>
         <scale max='6000000'>
             <layer name='ferry' road='true'>
@@ -901,14 +900,17 @@ For more information see http://www.cartotype.com.
         </layer>
     </scale>
     <layer name='route'>
-        <condition exp='_route:profile_name!="cycle" and _route:profile_name!="walk" and _route:profile_name!="hike"'>
-            <macro ref='route-highlight' color='ncsred+0.3yellow'/>
-        </condition>
         <condition exp='_route:profile_name="cycle"'>
             <macro ref='route-highlight' color='ncsblue'/>
         </condition>
+        <condition exp='_route:profile_name="ski"'>
+            <macro ref='route-highlight' color='ncsblue+white'/>
+        </condition>
         <condition exp='_route:profile_name="walk" || _route:profile_name="hike"'>
             <macro ref='route-highlight' color='ncsgreen'/>
+        </condition>
+        <condition exp='1'>
+            <macro ref='route-highlight' color='ncsred+0.3yellow'/>
         </condition>
     </layer>
     <layer name='waypoint'>
@@ -916,12 +918,15 @@ For more information see http://www.cartotype.com.
     </layer>
     <layer name='route-vector'>
         <label priority='-9'/>
-        <line width='27m@6000_180m@40000,18pt'/>
-        <if exp='ROUTE_PROFILE!="cycle" and ROUTE_PROFILE!="walk" and ROUTE_PROFILE!="hike"'>
+        <line width='27m@6000_180m@40000,18pt,36pt'/>
+        <if exp='ROUTE_PROFILE!="cycle" and ROUTE_PROFILE!="walk" and ROUTE_PROFILE!="hike" and ROUTE_PROFILE!="ski"'>
             <repeatedSymbol fill='ncsred+0.3yellow' opacity='0.8' gap='0' maxScale='1500000' path='#location-arrow'/>
         </if>
         <if exp='ROUTE_PROFILE="cycle"'>
             <repeatedSymbol fill='ncsblue' opacity='0.8' gap='0' maxScale='1500000' path='#location-arrow'/>
+        </if>
+        <if exp='ROUTE_PROFILE="ski"'>
+            <repeatedSymbol fill='ncsblue+white' opacity='0.8' gap='0' maxScale='1500000' path='#location-arrow'/>
         </if>
         <if exp='ROUTE_PROFILE="walk" || ROUTE_PROFILE="hike"'>
             <repeatedSymbol fill='ncsgreen' opacity='0.8' gap='0' maxScale='1500000' path='#location-arrow'/>

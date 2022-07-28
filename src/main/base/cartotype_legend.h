@@ -74,7 +74,7 @@ class Legend: public MFrameworkObserver
 
     // virtual functions from MFrameworkObserver
     void OnRoute(const Route* aRoute) override;
-    void OnTurn(const NavigatorTurn& aFirstTurn,const NavigatorTurn* aSecondTurn,const NavigatorTurn* aContinuationTurn) override;
+    void OnTurn(const NavigatorTurn& aFirstTurn,const NavigatorTurn* aSecondTurn,const NavigatorTurn* aContinuationTurn,double aDistanceLeft,double aTimeLeft) override;
     void OnState(CartoTypeCore::NavigationState aState) override;
 
     std::unique_ptr<Framework> m_framework;

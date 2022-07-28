@@ -1091,9 +1091,15 @@ void CCartoTypeDemoView::OnMouseMove(UINT /*nFlags*/,CPoint point)
             m_framework->ConvertPoint(m_map_drag_anchor_in_map_coords.X,m_map_drag_anchor_in_map_coords.Y,CartoType::CoordType::Display,CartoType::CoordType::Map);
             }
 
-        CDC* dc = GetDC();
-        if (dc)
-            OnDraw(dc);
+        if (!m_map_renderer)
+            {
+            CDC* dc = GetDC();
+            if (dc)
+                {
+                OnDraw(dc);
+                ReleaseDC(dc);
+                }
+            }
         }
     }
 

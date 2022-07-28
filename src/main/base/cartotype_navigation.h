@@ -685,7 +685,9 @@ class NavigatorTurn: public Turn
     /** Creates instructions for this turn and sets them in the turn object. */
     void SetInstructions(std::shared_ptr<CEngine> aEngine,const RouteProfile& aProfile,const char* aLocale,bool aMetricUnits,bool aAbbreviate);
     /** Creates instructions for this turn. */
-    String CreateInstructions(std::shared_ptr<CEngine> aEngine,const RouteProfile& aProfile,const char* aLocale,bool aMetricUnits,bool aAbbreviate,NavigationState aState = NavigationState::Turn,const NavigatorTurn* aNextTurn = nullptr) const;
+    String CreateInstructions(std::shared_ptr<CEngine> aEngine,const RouteProfile& aProfile,const char* aLocale,bool aMetricUnits,bool aAbbreviate,
+                              NavigationState aState = NavigationState::Turn,const NavigatorTurn* aNextTurn = nullptr,
+                              double aDistanceLeft = 0,double aTimeLeft = 0) const;
     /**
     Creates a diagram of the turn: either a line with a bend in it,
     or two lines connected to a circle representing a roundabout.
@@ -733,20 +735,25 @@ class MNavigatorObserver
     virtual void OnRoute(const Route* /*aRoute*/) {  }
 
     /**
-    This message supplies up to three turns.
+    This message is sent whenever there is a location update and the location is on route and the direction along the route is correct.
 
     aFirstTurn is the first significant turn after the current position, ignoring 'ahead' and 'continue' turns.
     If its type is TurnType::None there are no remaining significant turns.
-    aFirstTurn.iDistance is the distance from the current position to the first turn or the arrival point.
+    aFirstTurn.Distance is the distance from the current position to the first turn or the arrival point.
 
     aSecondTurn, if non-null, indicates that there is a significant turn 100 metres or less after aFirstTurn.
-    aSecondTurn->iDistance is the distance from the first turn to the second turn.
+    aSecondTurn->Distance is the distance from the first turn to the second turn.
 
     aContinuationTurn, if non-null, signals that there is an 'ahead' or 'continue' turn before aFirstTurn, so that
     the navigation system can show that no turn is required at the next junction or adjoining minor road.
-    aContinuationTurn->iDistance is the distance from the current position to the continuation turn.
+    aContinuationTurn->Distance is the distance from the current position to the continuation turn.
+
+    aDistanceLeft is the distance to the destination (along the route) in metres.
+
+    aTimeLeft is the time to the destination in seconds.
     */
-    virtual void OnTurn(const NavigatorTurn& /*aFirstTurn*/,const NavigatorTurn* /*aSecondTurn*/,const NavigatorTurn* /*aContinuationTurn*/) { }
+    virtual void OnTurn(const NavigatorTurn& /*aFirstTurn*/,const NavigatorTurn* /*aSecondTurn*/,const NavigatorTurn* /*aContinuationTurn*/,
+                        double /*aDistanceLeft*/,double /*aTimeLeft*/) { }
 
     /** This message updates the state. */
     virtual void OnState(NavigationState /*aState*/) { }

@@ -795,9 +795,8 @@ class Framework: public MNavigatorObserver
 
     // virtual functions from MNavigatorObserver
     void OnRoute(const CartoTypeCore::Route* aRoute) override;
-    void OnTurn(const NavigatorTurn& aFirstTurn,
-                const NavigatorTurn* aSecondTurn,
-                const NavigatorTurn* aContinuationTurn) override;
+    void OnTurn(const NavigatorTurn& aFirstTurn,const NavigatorTurn* aSecondTurn,const NavigatorTurn* aContinuationTurn,
+                double aDistanceLeft,double aTimeLeft) override;
     void OnState(CartoTypeCore::NavigationState aState) override;
     
     void ChangeStyleSheet(const CartoTypeCore::StyleSheetDataArray& aStyleSheetData,const VariableDictionary* aStyleSheetVariables = nullptr,const CartoTypeCore::BlendStyleSet* aBlendStyle = nullptr);
@@ -839,6 +838,8 @@ class Framework: public MNavigatorObserver
     NavigatorTurn iFirstTurn;
     NavigatorTurn iSecondTurn;
     NavigatorTurn iContinuationTurn;
+    double iDistanceLeft = 0;
+    double iTimeLeft = 0;
     CartoTypeCore::NavigationState iNavigationState = NavigationState::None;
     CartoTypeCore::NavigatorParam iNavigatorParam;
     CartoTypeCore::LocationMatchParam iLocationMatchParam;

@@ -682,5 +682,6 @@ FeatureType MajorRouteType(FeatureType aType);
 const char* GradientName(int aGradient);
 uint32_t GradientCode(int16_t aStartHeight,int16_t aEndHeight,int32_t aDistance);
 uint32_t RoadTypeMask(const MString& aLayer);
+double OsmSpeedLimit(const MString& aValue);
 
 } // namespace CartoTypeCore

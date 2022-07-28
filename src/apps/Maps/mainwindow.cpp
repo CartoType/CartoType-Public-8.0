@@ -905,7 +905,7 @@ void MainWindow::UpdateRouteProfileMenuItems()
             m_ui->menuRoute->removeAction(m_route_profile_separator_after);
 
         // Add route profile actions for the current map.
-        size_t n = m_map_form->BuiltInProfileCount() ? m_map_form->BuiltInProfileCount() : 5;
+        size_t n = m_map_form->BuiltInProfileCount() ? m_map_form->BuiltInProfileCount() : 6;
         for (size_t i = 0; i < n; i++)
             {
             auto a = new QAction(this);
@@ -929,7 +929,8 @@ void MainWindow::UpdateRouteProfileMenuItems()
             m_route_profile_action[1]->setText("Cycle");
             m_route_profile_action[2]->setText("Walk");
             m_route_profile_action[3]->setText("Hike");
-            m_route_profile_action[4]->setText("Custom Route Profile");
+            m_route_profile_action[4]->setText("Ski");
+            m_route_profile_action[5]->setText("Custom Route Profile");
             }
 
         m_route_profile_separator_after = m_ui->menuRoute->insertSeparator(m_ui->actionView_Route_Instructions);
