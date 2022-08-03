@@ -157,8 +157,9 @@ void MapForm::resizeEvent(QResizeEvent* aEvent)
         aEvent->size().width() > 0 &&
         aEvent->size().height() > 0)
         {
-        m_framework->Resize(aEvent->size().width(),aEvent->size().height());
-        m_map_image.reset(new QImage(aEvent->size(),QImage::Format_ARGB32_Premultiplied));
+        auto scale = devicePixelRatio();
+        m_framework->Resize(aEvent->size().width() * scale,aEvent->size().height() * scale);
+        m_map_image.reset(new QImage(aEvent->size() * scale,QImage::Format_ARGB32_Premultiplied));
         }
 
     static bool first = true;
@@ -1523,6 +1524,45 @@ void MapForm::GoToLocation(double aLong,double aLat)
     update();
     }
 
+static double Degrees(const CartoType::MString& aText)
+    {
+    double degrees = 0;
+    double scale = 1;
+    double sign = 1;
+    auto p = aText.Data();
+    auto end = p + aText.Length();
+    while (p < end)
+        {
+        while (p < end && CartoType::Char(*p).IsWhitespace())
+            p++;
+        if (p == end)
+            break;
+
+        auto start = p;
+        while (p < end && !CartoType::Char(*p).IsWhitespace())
+            p++;
+        CartoType::Text section(start,p - start);
+        if (section == "s" || section == "S" || section == "w" || section == "W")
+            {
+            sign = -sign;
+            continue;
+            }
+        if (section == "n" || section == "N" || section == "e" || section == "E")
+            continue;
+
+        size_t length = 0;
+        degrees += section.ToDouble(&length) * scale;
+        if (degrees < 0 && scale == 1)
+            scale = -scale;
+
+        if (length < section.Length() - 1) // allow a single trailing punctuation character like ' or "
+            return 0;
+        scale /= 60;
+        }
+
+    return degrees * sign;
+    }
+
 void MapForm::GoToLocation()
     {
     LocationDialog location_dialog(this);
@@ -1538,8 +1578,10 @@ void MapForm::GoToLocation()
     location_dialog.m_ui->latitude->setText(lat_qs);
     if (location_dialog.exec() == QDialog::DialogCode::Accepted)
         {
-        double new_long = location_dialog.m_ui->longitude->text().toDouble();
-        double new_lat = location_dialog.m_ui->latitude->text().toDouble();
+        CartoType::String long_text(location_dialog.m_ui->longitude->text().toUtf8());
+        double new_long = Degrees(long_text);
+        CartoType::String lat_text(location_dialog.m_ui->latitude->text().toUtf8());
+        double new_lat = Degrees(lat_text);
         GoToLocation(new_long,new_lat);
         }
     }
