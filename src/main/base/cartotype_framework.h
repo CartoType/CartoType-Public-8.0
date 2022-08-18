@@ -772,7 +772,7 @@ class Framework: public MNavigatorObserver
     void SetRoutePositionAndVector(const Point& aPos,const Point& aVector);
     void CreateNavigator();
     void InstallNavigator(std::unique_ptr<CNavigator> aNavigator);
-    void SetCameraParam(CameraParam& aCameraParam,double aViewWidth,double aViewHeight);
+    CameraParam CreateCameraParam(double aViewWidth,double aViewHeight);
     void InsertMapObject(uint32_t aMapHandle,const String& aLayerName,const MPath& aGeometry,
                          const String& aStringAttributes,FeatureInfo aFeatureInfo,uint64_t& aId,bool aReplace);
     void InsertTrackObject();

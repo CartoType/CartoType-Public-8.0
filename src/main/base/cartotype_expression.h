@@ -40,14 +40,14 @@ class ExpressionValue
         {
         }
 
-    ExpressionValue(const MString& aString):
+    ExpressionValue(const MString& aString,bool aAllowFeatureTypeNames = false):
         iNumber(NAN),
         iString(aString)
         {
         if (iString.Length() == 0)
             iString = Text(); // treat empty strings as null values so that '' compares equal to an undefined variable
         else
-            iNumber = ValueOfStringLiteral(iString,true);
+            iNumber = ValueOfStringLiteral(iString,true,aAllowFeatureTypeNames);
         }
 
     operator double() const { return iNumber; }
@@ -117,7 +117,7 @@ class ExpressionValue
         }
 
     const MString* StringValue() const { return iString.Data() ? &iString : nullptr; }
-    static double ValueOfStringLiteral(const MString& aText,bool aTolerateSyntaxError);
+    static double ValueOfStringLiteral(const MString& aText,bool aTolerateSyntaxError,bool aAllowFeatureTypeNames);
 
     private:
     double iNumber;

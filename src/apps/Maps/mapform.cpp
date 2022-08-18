@@ -34,6 +34,8 @@ MapForm::MapForm(QWidget* aParent,MainWindow& aMainWindow,const std::vector<QStr
     m_main_window(aMainWindow),
     m_find_dialog(this)
     {
+    m_device_pixel_ratio = devicePixelRatioF();
+
     assert(!aMapFileNameArray.empty());
     m_filename_array.push_back(aMapFileNameArray[0]);
     m_ui->setupUi(this);
@@ -118,8 +120,19 @@ MapForm::MapForm(QWidget* aParent,MainWindow& aMainWindow,const std::vector<QStr
     m_map_image.reset(new QImage(rect.width(),rect.height(),QImage::Format_ARGB32_Premultiplied));
 
     m_ui->perspective_slider->hide();
-
+    
     SetGraphicsAcceleration(true);
+    }
+
+void MapForm::ScreenChanged()
+    {
+    double dpr = devicePixelRatioF();
+    if (dpr != m_device_pixel_ratio)
+        {
+        m_device_pixel_ratio = dpr;
+        m_framework->Resize(CartoType::Round(size().width() * m_device_pixel_ratio),
+                            CartoType::Round(size().height() * m_device_pixel_ratio));
+        }
     }
 
 MapForm::~MapForm()
@@ -152,14 +165,23 @@ void MapForm::SetView(const CartoType::ViewState& aViewState)
 
 void MapForm::resizeEvent(QResizeEvent* aEvent)
     {
+    static QWindow* w;
+    if (w == nullptr)
+        {
+        w = window()->windowHandle();
+        connect(w,&QWindow::screenChanged,this,&MapForm::ScreenChanged);
+        }
+
     QOpenGLWidget::resizeEvent(aEvent);
     if (m_framework &&
         aEvent->size().width() > 0 &&
         aEvent->size().height() > 0)
         {
-        auto scale = devicePixelRatio();
-        m_framework->Resize(aEvent->size().width() * scale,aEvent->size().height() * scale);
-        m_map_image.reset(new QImage(aEvent->size() * scale,QImage::Format_ARGB32_Premultiplied));
+        auto w = CartoType::Round(aEvent->size().width() * m_device_pixel_ratio);
+        auto h = CartoType::Round(aEvent->size().height() * m_device_pixel_ratio);
+
+        m_framework->Resize(w,h);
+        m_map_image.reset(new QImage({ w, h},QImage::Format_ARGB32_Premultiplied));
         }
 
     static bool first = true;
@@ -190,10 +212,12 @@ void MapForm::paintEvent(QPaintEvent* aEvent)
 
 void MapForm::mousePressEvent(QMouseEvent* aEvent)
     {
+    auto x = CartoType::Round(aEvent->x() * m_device_pixel_ratio);
+    auto y = CartoType::Round(aEvent->y() * m_device_pixel_ratio);
     if (aEvent->button() == Qt::MouseButton::LeftButton)
-        LeftButtonDown(aEvent->x(),aEvent->y());
+        LeftButtonDown(x,y);
     else if (aEvent->button() == Qt::MouseButton::RightButton)
-        RightButtonDown(aEvent->x(),aEvent->y());
+        RightButtonDown(x,y);
     }
 
 void MapForm::SetEditMode(bool aSet)
@@ -217,7 +241,7 @@ void MapForm::mouseDoubleClickEvent(QMouseEvent* aEvent)
     if (aEvent->button() != Qt::MouseButton::LeftButton)
         return;
 
-    CartoType::PointFP p(aEvent->x(),aEvent->y());
+    CartoType::PointFP p(aEvent->x() * m_device_pixel_ratio,aEvent->y() * m_device_pixel_ratio);
     if (!m_edit_mode)
         {
         if (m_framework->EditSelectNearestPoint(p,2) == CartoType::KErrorNone)
@@ -252,17 +276,23 @@ void MapForm::mouseDoubleClickEvent(QMouseEvent* aEvent)
 
 void MapForm::mouseReleaseEvent(QMouseEvent* aEvent)
     {
+    auto x = CartoType::Round(aEvent->x() * m_device_pixel_ratio);
+    auto y = CartoType::Round(aEvent->y() * m_device_pixel_ratio);
+
     if (aEvent->button() == Qt::MouseButton::LeftButton)
-        LeftButtonUp(aEvent->x(),aEvent->y(),aEvent->modifiers() == Qt::ShiftModifier);
+        LeftButtonUp(x,y,aEvent->modifiers() == Qt::ShiftModifier);
     else if (aEvent->button() == Qt::MouseButton::RightButton)
-        RightButtonUp(aEvent->x(),aEvent->y());
+        RightButtonUp(x,y);
     }
 
 void MapForm::mouseMoveEvent(QMouseEvent* aEvent)
     {
+    auto x = CartoType::Round(aEvent->x() * m_device_pixel_ratio);
+    auto y = CartoType::Round(aEvent->y() * m_device_pixel_ratio);
+
     if (m_edit_mode)
         {
-        m_framework->EditMoveCurrentPoint(CartoType::PointFP(aEvent->x(),aEvent->y()));
+        m_framework->EditMoveCurrentPoint(CartoType::PointFP(x,y));
         ShowEditedObjectSize();
         m_writable_map_changed = true;
         update();
@@ -271,16 +301,16 @@ void MapForm::mouseMoveEvent(QMouseEvent* aEvent)
 
     if (m_map_drag_enabled)
         {
-        m_map_drag_offset.X = aEvent->x() - m_map_drag_anchor.X;
-        m_map_drag_offset.Y = aEvent->y() - m_map_drag_anchor.Y;
+        m_map_drag_offset.X = x - m_map_drag_anchor.X;
+        m_map_drag_offset.Y = y - m_map_drag_anchor.Y;
 
         if (m_graphics_acceleration)
             {
             m_framework->Pan(m_map_drag_anchor_in_map_coords.X,m_map_drag_anchor_in_map_coords.Y,CartoType::CoordType::Map,
-                             aEvent->x(),aEvent->y(),CartoType::CoordType::Display);
+                             x,y,CartoType::CoordType::Display);
             m_map_drag_offset = CartoType::Point(0,0);
-            m_map_drag_anchor.X = aEvent->x();
-            m_map_drag_anchor.Y = aEvent->y();
+            m_map_drag_anchor.X = x;
+            m_map_drag_anchor.Y = y;
             m_map_drag_anchor_in_map_coords = m_map_drag_anchor;
             m_framework->ConvertPoint(m_map_drag_anchor_in_map_coords.X,m_map_drag_anchor_in_map_coords.Y,CartoType::CoordType::Display,CartoType::CoordType::Map);
             }
@@ -296,10 +326,10 @@ void MapForm::wheelEvent(QWheelEvent* aEvent)
         return;
 
     // If the mouse pointer is in the window, pan the map so that the point under the mouse pointer stays where it is.
-    CartoType::Rect r(0,0,width(),height());
+    CartoType::RectFP r(0,0,width() * m_device_pixel_ratio,height() * m_device_pixel_ratio);
     QPointF point = aEvent->position();
     bool set_centre = false;
-    CartoType::Point p(CartoType::Round(point.x()),CartoType::Round(point.y()));
+    CartoType::PointFP p(point.x() * m_device_pixel_ratio,point.y() * m_device_pixel_ratio);
     if (r.Contains(p))
         set_centre = true;
 
@@ -321,9 +351,8 @@ void MapForm::keyPressEvent(QKeyEvent* aEvent)
     {
     if (aEvent->type() != QEvent::KeyPress)
         return;
-
-    int pan_x = 0;
-    int pan_y = 0;
+    double pan_x = 0;
+    double pan_y = 0;
     switch (aEvent->key())
         {
         case Qt::Key_Escape:
@@ -357,21 +386,21 @@ void MapForm::keyPressEvent(QKeyEvent* aEvent)
 
         case Qt::Key_Up:
             pan_x = 0;
-            pan_y = -32;
+            pan_y = -32 * m_device_pixel_ratio;
             break;
 
         case Qt::Key_Down:
             pan_x = 0;
-            pan_y = 32;
+            pan_y = 32 * m_device_pixel_ratio;
             break;
 
         case Qt::Key_Left:
-            pan_x = -32;
+            pan_x = -32 * m_device_pixel_ratio;
             pan_y = 0;
             break;
 
         case Qt::Key_Right:
-            pan_x = 32;
+            pan_x = 32 * m_device_pixel_ratio;
             pan_y = 0;
             break;
 
@@ -382,9 +411,9 @@ void MapForm::keyPressEvent(QKeyEvent* aEvent)
 
     if (m_edit_mode && (pan_x || pan_y))
         {
-        m_framework->Pan(pan_x,pan_y);
+        m_framework->Pan(CartoType::Round(pan_x),CartoType::Round(pan_y));
         auto pos = mapFromGlobal(cursor().pos());
-        m_framework->EditMoveCurrentPoint(CartoType::PointFP(pos.x(),pos.y()));
+        m_framework->EditMoveCurrentPoint(CartoType::PointFP(pos.x() * m_device_pixel_ratio,pos.y() * m_device_pixel_ratio));
         ShowEditedObjectSize();
         m_writable_map_changed = true;
         }

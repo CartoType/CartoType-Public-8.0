@@ -4,6 +4,8 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QScreen>
+#include <QWindow>
 
 #include "mainwindow.h"
 #include "finddialog.h"
@@ -131,6 +133,7 @@ class MapForm: public QOpenGLWidget
     void GoToLocation(double aLong,double aLat);
     void SetEditMode(bool aSet);
     void ShowEditedObjectSize();
+    void ScreenChanged();
     void TestCode();
 
     Ui::MapForm* m_ui;
@@ -182,4 +185,5 @@ class MapForm: public QOpenGLWidget
     int m_perspective_angle = 30;
     bool m_simulate_routing = false;
     bool m_edit_mode = false;
+    double m_device_pixel_ratio = 1;                // factor by which to multiply display coords to get physical pixels
     };
