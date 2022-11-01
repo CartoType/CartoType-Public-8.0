@@ -499,7 +499,7 @@ class FeatureInfo
     /** Sets or clears the flag indicating that there are other access restrictions. Does nothing and returns an error if this is not a route. */
     constexpr Result SetOtherAccessRestricted(bool aValue) { return SetRouteFlag(KRouteAccessOtherFlag,aValue); }
     /** Returns true if this is a route and no normal access is allowed. */
-    constexpr bool IsPrivate() const { return Route() ? ((m_value & KRouteAccessNormal) == KRouteAccessNormal) : false; }
+    constexpr bool IsPrivate() const { return Route() ? ((m_value & KRouteAccessPublic) == KRouteAccessPublic) : false; }
     /** Returns the sub-type. Returns 0 if this is a route. */
     constexpr uint32_t SubType() const { return Value(false,KNonRouteSubTypeMask,KNonRouteSubTypeShift); }
     /** Sets the sub-type. Does nothing and returns an error if this is a route.*/
@@ -562,8 +562,8 @@ class FeatureInfo
     static constexpr uint32_t KRouteAccessOtherFlag = 1U << 31;
     /** A set of flags covering all vehicles. */
     static constexpr uint32_t KRouteAccessVehicle = KRouteAccessCycleFlag | KRouteAccessMotorVehicleFlag | KRouteAccessEmergencyVehicleFlag;
-    /** A set of flags indicating normal access: that is, access for pedestrians, cyclists and motor vehicles. */
-    static constexpr uint32_t KRouteAccessNormal = KRouteAccessCycleFlag | KRouteAccessMotorVehicleFlag | KRouteAccessPedestrianFlag;
+    /** A set of flags indicating public access: that is, access for pedestrians, cyclists and motor vehicles. */
+    static constexpr uint32_t KRouteAccessPublic = KRouteAccessCycleFlag | KRouteAccessMotorVehicleFlag | KRouteAccessPedestrianFlag;
 
     /** The Field type is used by SetField, which is intended for advanced and internal use only. */
     enum class Field
@@ -579,7 +579,7 @@ class FeatureInfo
         Toll,
         SpeedLimit,
         Gradient,
-        Access,
+        PublicAccess,
         Vehicle,
         Pedestrian,
         Cycle,

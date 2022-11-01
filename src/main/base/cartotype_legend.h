@@ -72,7 +72,7 @@ class Legend: public MFrameworkObserver
     void DrawScale(GraphicsContext& aGc,const LegendObjectParam& aParam,int32_t aX,int32_t aY,int32_t aWidth,Color aBlendColor);
     void Copy(const Legend& aOther);
 
-    // virtual functions from MFrameworkObserver
+    // virtual functions from MNavigatorObserver
     void OnRoute(const Route* aRoute) override;
     void OnTurn(const NavigatorTurn& aFirstTurn,const NavigatorTurn* aSecondTurn,const NavigatorTurn* aContinuationTurn,double aDistanceLeft,double aTimeLeft) override;
     void OnState(CartoTypeCore::NavigationState aState) override;
