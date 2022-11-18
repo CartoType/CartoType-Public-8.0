@@ -159,7 +159,7 @@ template<class point_t> class GeneralGeometry
 
     private:
     std::vector<contour_t> m_contour_array = std::vector<contour_t>(1);
-    CartoTypeCore::CoordType m_coord_type = CoordType::Map;
+    CartoTypeCore::CoordType m_coord_type = CartoTypeCore::CoordType::Map;
     bool m_closed = false;
     };
 

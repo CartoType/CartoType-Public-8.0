@@ -1761,7 +1761,6 @@ void MapForm::on_perspective_slider_valueChanged(int aValue)
     {
     CartoType::PerspectiveParam p;
     p.DeclinationDegrees = m_perspective_angle = aValue;
-    p.FieldOfViewDegrees = 38;
     m_framework->SetPerspective(p);
     update();
     }
@@ -1774,7 +1773,6 @@ void MapForm::SetPerspective(bool aEnable)
             {
             CartoType::PerspectiveParam p;
             p.DeclinationDegrees = m_perspective_angle;
-            p.FieldOfViewDegrees = 38;
             m_framework->SetPerspective(p);
 #ifndef Q_OS_MAC // vertical sliders don't work properly on Mac: see QTBUG-57194: QSlider in orientation vertical fill display inverted on Mac X.12
             m_ui->perspective_slider->show();

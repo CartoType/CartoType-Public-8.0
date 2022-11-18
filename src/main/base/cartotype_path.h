@@ -1010,7 +1010,7 @@ template<class MPathTraverser> inline void MPath::Traverse(MPathTraverser& aTrav
 /** Traverses this contour, calling the functions defined by aTraverser to handle moves, lines, and curves. Clips the output to aClip if aClip is non-null. */
 template<class MTraverser> inline void ContourView::Traverse(MTraverser& aTraverser,const Rect* aClip) const
     {
-    if (aClip && !aClip->IsMaximal() && ClipType(*aClip) != ClipType::Inside)
+    if (aClip && !aClip->IsMaximal() && ClipType(*aClip) != CartoTypeCore::ClipType::Inside)
         {
         if (Points() < 2)
             return;

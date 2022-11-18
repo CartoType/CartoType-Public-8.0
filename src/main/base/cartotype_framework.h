@@ -253,7 +253,12 @@ class PerspectiveParam
     double AzimuthDegrees = 0;
     /** If true, ignore iAzimuthDegrees and use the current map orientation. */
     bool AutoAzimuth = true;
-    /** The declination of the camera downward from the horizontal plane. Values are clamped to the range -90...90. */
+    /**
+    The declination of the camera downward from the horizontal plane.
+    The value 90 is equivalent to looking straight downwards, and perspective is apparent only in 3D buildings.
+    Values are clamped to the range 25...90 when creating the perspective transform.
+    Smaller declinations cause performance problems and integer overflow in coordinate conversion.
+    */
     double DeclinationDegrees = 30;
     /** The amount by which the camera is rotated about its axis, after applying the declination, in degrees going clockwise. */
     double RotationDegrees = 0;
@@ -847,7 +852,7 @@ class Framework: public MNavigatorObserver
     CartoTypeCore::RouteCreationData iRouteCreationData;
     PointFP iVehiclePosOffset;
     std::shared_ptr<CTileServer> iTileServer;
-    int32_t iTileServerOverSizeZoomLevels = 2;
+    int32_t iTileServerOverSizeZoomLevels = 1;
     std::string iLocale;
     CartoTypeCore::FollowMode iFollowMode = FollowMode::LocationHeadingZoom;
     bool iMapsOverlap = true;

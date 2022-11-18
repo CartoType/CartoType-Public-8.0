@@ -169,7 +169,7 @@ class GeoCodeItem
     {
     public:
     /** The geocode type of the item. */
-    CartoTypeCore::GeoCodeType GeoCodeType = GeoCodeType::None;
+    CartoTypeCore::GeoCodeType GeoCodeType = CartoTypeCore::GeoCodeType::None;
 
     /**
     The name of the object, in the locale used when requesting a geocode.

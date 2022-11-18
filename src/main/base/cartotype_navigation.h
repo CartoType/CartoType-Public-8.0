@@ -68,7 +68,7 @@ enum class TurnType
     */
     BearRight,
     /** A turn between 45 degrees and 120 degrees right. */
-    MaxX,
+    Right,
     /** A turn between 120 degrees and 180 degrees right. */
     SharpRight,
     /** This turn type is use for U-turns: turns back along the same road. */
@@ -76,7 +76,7 @@ enum class TurnType
     /** A turn between 120 degrees and 180 degrees left. */
     SharpLeft,
     /** A turn between 45 degrees and 120 degrees left. */
-    MinX,
+    Left,
     /**
     A turn between 15 degrees and 45 degrees left.
     or a turn through a smaller angle which is the leftmost of a fork with two choices.
@@ -126,8 +126,8 @@ class Turn
         RightAlternatives = aRightAlternatives;
         IsFork = aIsFork;
         IsTurnOff = aTurnOff;
-        if (TurnType == TurnType::Ahead && (IsTurnOff || (IsFork && Choices == 2)))
-            TurnType = LeftAlternatives ? TurnType::BearRight : TurnType::BearLeft;
+        if (TurnType == CartoTypeCore::TurnType::Ahead && (IsTurnOff || (IsFork && Choices == 2)))
+            TurnType = LeftAlternatives ? CartoTypeCore::TurnType::BearRight : CartoTypeCore::TurnType::BearLeft;
         }
 
     /** Sets the Turn object's turn angle and turn type from an angle in degrees. Leaves other date members unchanged. */
@@ -135,30 +135,30 @@ class Turn
         {
         TurnAngle = aTurnAngle;
         if (TurnAngle > 120)
-            TurnType = TurnType::SharpRight;
+            TurnType = CartoTypeCore::TurnType::SharpRight;
         else if (TurnAngle > 45)
-            TurnType = TurnType::MaxX;
+            TurnType = CartoTypeCore::TurnType::Right;
         else if (TurnAngle > 15)
-            TurnType = TurnType::BearRight;
+            TurnType = CartoTypeCore::TurnType::BearRight;
         else if (TurnAngle > -15)
-            TurnType = TurnType::Ahead;
+            TurnType = CartoTypeCore::TurnType::Ahead;
         else if (TurnAngle > -45)
-            TurnType = TurnType::BearLeft;
+            TurnType = CartoTypeCore::TurnType::BearLeft;
         else if (TurnAngle > -120)
-            TurnType = TurnType::MinX;
+            TurnType = CartoTypeCore::TurnType::Left;
         else
-            TurnType = TurnType::SharpLeft;
+            TurnType = CartoTypeCore::TurnType::SharpLeft;
         }
 
     /** Writes the Turn object in XML format as a turn element. */
     void WriteAsXml(MOutputStream& aOutput) const;
 
     /** The turn type: ahead, left, right, etc. */
-    CartoTypeCore::TurnType TurnType = TurnType::None;
+    CartoTypeCore::TurnType TurnType = CartoTypeCore::TurnType::None;
     /** True if this turn is a continuation of the current road and no notification is needed. */
     bool IsContinue = true;
     /** The roundabout state. */
-    CartoTypeCore::RoundaboutState RoundaboutState = RoundaboutState::None;
+    CartoTypeCore::RoundaboutState RoundaboutState = CartoTypeCore::RoundaboutState::None;
     /** The turn angle in degrees: 0 = straight ahead; negative = left, positive = right. */
     double TurnAngle = 0;
     /** The incoming direction in degrees relative to map east, going anticlockwise. */
@@ -890,7 +890,7 @@ class RouteCoordSet
     RouteCoordSet& operator=(RouteCoordSet&& aOther) = default;
 
     /** The coordinate type of the route points. */
-    CartoTypeCore::CoordType CoordType = CoordType::Degree;
+    CartoTypeCore::CoordType CoordType = CartoTypeCore::CoordType::Degree;
     /** The route points. */
     std::vector<RoutePoint> RoutePointArray;
     };
@@ -979,8 +979,8 @@ class LocationRef
         Type(aType),
         Geometry(aCoordType),
         RadiusInMeters(0),
-        SideOfRoad(SideOfRoad::None),
-        RoadOrientation(RoadOrientation::None)
+        SideOfRoad(CartoTypeCore::SideOfRoad::None),
+        RoadOrientation(CartoTypeCore::RoadOrientation::None)
         {
         }
 

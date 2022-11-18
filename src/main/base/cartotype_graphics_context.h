@@ -69,10 +69,10 @@ class CircularPen
     double PenWidth = 1;
 
     /** The line cap type. */
-    CartoTypeCore::LineCap LineCap = LineCap::Round;
+    CartoTypeCore::LineCap LineCap = CartoTypeCore::LineCap::Round;
 
     /** The line join type. */
-    CartoTypeCore::LineJoin LineJoin = LineJoin::Round;
+    CartoTypeCore::LineJoin LineJoin = CartoTypeCore::LineJoin::Round;
 
     /**
     If the corners are mitered, they are cut off by a straight line if they
