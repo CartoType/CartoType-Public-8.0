@@ -182,7 +182,7 @@ const CartoType::BitmapView* CCartoTypeDemoView::MapBitmap(CartoType::Result& aE
                 memcpy(const_cast<uint8_t*>(m_extra_gc->Bitmap()->Data()),bitmap->Data(),bitmap->DataBytes());
 
             // Draw the legend and copyright notice.
-            if (m_draw_legend)
+            if (m_draw_legend || m_draw_turn_instructions)
                 m_framework->DrawNotices(*m_extra_gc);
 
             bitmap = m_extra_gc->Bitmap();
