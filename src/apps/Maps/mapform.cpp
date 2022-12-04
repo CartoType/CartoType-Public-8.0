@@ -151,7 +151,9 @@ void MapForm::SetView(const CartoType::ViewState& aViewState)
     m_framework->SetView(aViewState);
     m_ui->dial->setValue(int(m_framework->Rotation() * 100));
     m_main_window.UpdateNorthUp();
+    bool p = m_framework->Perspective();
     m_ui->perspective_slider->setValue((int)m_framework->PerspectiveParam().DeclinationDegrees);
+    m_framework->SetPerspective(p);
     if (m_framework->Perspective())
         {
 #ifndef Q_OS_MAC // vertical sliders don't work properly on Mac: see QTBUG-57194: QSlider in orientation vertical fill display inverted on Mac X.12
